@@ -23,31 +23,26 @@ public class CypherTool {
             System.out.println("\nSelect Operation:");
             System.out.println("1. Encrypt");
             System.out.println("2. Decrypt");
-            System.out.println("3. Exit");
             System.out.print("Choice: ");
 
             String choice = input.nextLine().trim();
-
+              // check if user entered "exit" to terminate the program and makes it not  case sensitive and closes thr program
             if (choice.equalsIgnoreCase("exit")) {
                 System.out.println("Goodbye!");
                 input.close();
                 return;
             }
 
+             // check if the user entered a number and if it is 1 or 2, then break the loop and go to the cipher menu
             if (isNumber(choice)) {
                 operation = Integer.parseInt(choice);
 
-                if (operation == 3) {
-                    System.out.println("Goodbye!");
-                    input.close();
-                    return;
-                }
 
                 if (operation == 1 || operation == 2) {
                     break;      // Go to cipher menu
                 }
             }
-
+                // tells the user that they entered an invalid operation and to try again and prompts the user to enter a valid operation
             System.out.println("Invalid operation. Please try again.");
         }
 
@@ -63,12 +58,13 @@ public class CypherTool {
 
             String choice = input.nextLine().trim();
 
+            //checks if user wants to quit at this stage and closes the program if they do, also makes it not case sensitive
             if (choice.equalsIgnoreCase("exit")) {
                 System.out.println("Goodbye!");
                 input.close();
                 return;
             }
-
+            // checks if the user entered a number and if it is 1, 2, or 3, then break the loop and go to the message (or shift, for Caesar)
             if (isNumber(choice) && Integer.parseInt(choice) >= 1 && Integer.parseInt(choice) <= 3) {
                 cipher = Integer.parseInt(choice);
                 break;      // Go to message (or shift, for Caesar)
@@ -80,16 +76,17 @@ public class CypherTool {
         // SHIFT (Caesar only)
         if (cipher == 3) {
             while (true) {
-
+                // prompt the user to enter a shift value for the Caesar cipher and checks if it is a whole number, if not it prompts the user to enter a valid shift value
                 System.out.print("\nEnter shift value (whole number): ");
                 String shiftChoice = input.nextLine().trim();
 
+                //checks if user wants to quit at this stage and closes the program if they do, also makes it not case sensitive
                 if (shiftChoice.equalsIgnoreCase("exit")) {
                     System.out.println("Goodbye!");
                     input.close();
                     return;
                 }
-
+                // checks if the user entered a number and if it is a whole number, then break the loop and go to the message
                 if (isNumber(shiftChoice)) {
                     shift = Integer.parseInt(shiftChoice);
                     break;
@@ -102,16 +99,18 @@ public class CypherTool {
         // MESSAGE
         String message;
         while (true) {
-
+            // prompt the user to enter a message to encrypt or decrypt and checks if it is not empty, if it is empty it prompts the user to enter a valid message
             System.out.print("\nEnter your message: ");
             message = input.nextLine().trim();
 
+            //  checks if user wants to quit at this stage and closes the program if they do, also makes it not case sensitive
             if (message.equalsIgnoreCase("exit")) {
                 System.out.println("Goodbye!");
                 input.close();
                 return;
             }
 
+            // checks if the message is empty, if it is empty it prompts the user to enter a valid message
             if (message.length() == 0) {
                 System.out.println("Message cannot be empty. Please try again.");
                 continue;
@@ -124,6 +123,7 @@ public class CypherTool {
         String result = "";
         String cipherName = "";
 
+        // checks which cipher the user selected and applies the appropriate encryption or decryption method based on the user's choice of operation
         if (cipher == 1) {
             cipherName = "ROT13";
             if (operation == 1) {
@@ -157,13 +157,12 @@ public class CypherTool {
         input.close();
     }
 
-    // Checks that a string is made up only of digits (so we can safely
-    // turn it into a number without needing try/catch).
+    // Checks that a string is made up only of digits (so we can turn it into a number).
     public static boolean isNumber(String s) {
         if (s.length() == 0) {
             return false;
         }
-
+  
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
             if (c < '0' || c > '9') {
