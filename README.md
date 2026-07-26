@@ -17,7 +17,7 @@ Ciphers/
 1. Install Java JDK 8 or later.
 2. From the project root, compile:
    ```bash
-   javac Main.java CypherTool.java Ciphers/*.java InputValidator.java Cipher.java
+   javac Main.java
    ```
 3. Run:
    ```bash
